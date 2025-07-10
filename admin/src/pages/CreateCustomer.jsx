@@ -1,3 +1,3 @@
 export default function CreateCustomer() {
-  return <div className="text-lg">Form tạo khách hàng</div>;
+  return <div className="text-lg">Nơi tạo khách hàng</div>;
 }
