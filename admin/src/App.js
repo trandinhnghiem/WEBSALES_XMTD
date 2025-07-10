@@ -14,7 +14,7 @@ function App() {
       <div className="flex min-h-screen bg-white">
         {/* Sidebar */}
         <div className={`bg-blue-700 text-white w-64 p-4 space-y-4 ${sidebarOpen ? "block" : "hidden"}`}>
-          <h1 className="text-2xl font-bold mb-4">XMTĐ Admin</h1>
+          <h1 className="text-2xl font-bold mb-4">QUẢN TRỊ VIÊN</h1>
           <NavLink to="/create-customer" className="block hover:underline">Tạo khách hàng</NavLink>
           <NavLink to="/create-employee" className="block hover:underline">Tạo nhân viên</NavLink>
           <NavLink to="/credit-info" className="block hover:underline">Thông tin hạn mức</NavLink>
