@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import Sidebar from "./components/Sidebar"; // <-- thêm dòng này
 import CreateCustomer from "./pages/CreateCustomer";
 import CreateEmployee from "./pages/CreateEmployee";
 import CreditLimitInfo from "./pages/CreditLimitInfo";
@@ -13,24 +14,17 @@ function App() {
     <Router>
       <div className="flex min-h-screen bg-white">
         {/* Sidebar */}
-        <div className={`bg-blue-700 text-white w-64 p-4 space-y-4 ${sidebarOpen ? "block" : "hidden"}`}>
-          <h1 className="text-2xl font-bold mb-4">QUẢN TRỊ VIÊN</h1>
-          <NavLink to="/create-customer" className="block hover:underline">Tạo khách hàng</NavLink>
-          <NavLink to="/create-employee" className="block hover:underline">Tạo nhân viên</NavLink>
-          <NavLink to="/credit-info" className="block hover:underline">Thông tin hạn mức</NavLink>
-          <NavLink to="/delivery-codes" className="block hover:underline">Mã số giao hàng</NavLink>
-          <NavLink to="/delivery-details" className="block hover:underline">Chi tiết xuất hàng</NavLink>
-        </div>
+        {sidebarOpen && <Sidebar />} {/* tách ra thành component riêng */}
 
         {/* Main Content */}
-        <div className="flex-1 p-6 bg-gray-50">
+        <div className="flex-1 p-6 bg-gray-50 overflow-y-auto h-screen">
           <Routes>
             <Route path="/create-customer" element={<CreateCustomer />} />
             <Route path="/create-employee" element={<CreateEmployee />} />
             <Route path="/credit-info" element={<CreditLimitInfo />} />
             <Route path="/delivery-codes" element={<DeliveryCodes />} />
             <Route path="/delivery-details" element={<DeliveryDetails />} />
-            <Route path="*" element={<div className="text-xl text-gray-600\">Chọn mục bên trái để bắt đầu</div>} />
+            <Route path="*" element={<div className="text-xl text-gray-600">Chọn mục bên trái để bắt đầu</div>} />
           </Routes>
         </div>
       </div>
