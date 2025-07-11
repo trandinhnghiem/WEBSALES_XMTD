@@ -14,7 +14,7 @@ router.post("/create", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const [result] = await db.execute(
-      "INSERT INTO distributors (id, name, password, tax_code, address, provinces) VALUES (?, ?, ?, ?, ?, ?)",
+      "INSERT INTO customer (id, name, password, tax_code, address, provinces) VALUES (?, ?, ?, ?, ?, ?)",
       [id, name, hashedPassword, taxCode, address, JSON.stringify(provinces)]
     );
 
