@@ -9,6 +9,9 @@ app.use(express.json());
 
 const distributorRoutes = require("./routes/distributors");
 app.use("/api/distributors", distributorRoutes);
+const userRoutes = require("./routes/users");
+app.use("/api/users", userRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server chạy tại http://localhost:${PORT}`));
