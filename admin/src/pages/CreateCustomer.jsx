@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import Header from "../components/Header"; // Import component Header
 
 const provincesList = [
   "Hà Nội", "Hồ Chí Minh", "Hải Phòng", "Đà Nẵng", "Cần Thơ", "Bà Rịa - Vũng Tàu",
@@ -107,9 +106,8 @@ export default function CreateCustomer() {
   };
 
   return (
-    <div className="p-6 w-full">
-      <Header title="Quản lý tài khoản" />
-      <div className="mt-4">
+    <div className="p-2 w-full">
+      
         <h2 className="text-xl font-semibold mb-4">Tài khoản khách hàng</h2>
 
         <button
@@ -243,7 +241,7 @@ export default function CreateCustomer() {
               )}
             </tbody>
           </table>
-        </div>
+      
       </div>
     </div>
   );
