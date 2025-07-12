@@ -20,10 +20,12 @@ router.get("/", async (_req, res) => {
               a.credit_limit - IFNULL(SUM(o.total_amount),0) AS credit_left
       FROM    accounts a
       LEFT JOIN orders o ON o.customer_id = a.id
-           AND o.status <> 'canceled'
+          AND o.status <> 'canceled'
+      WHERE   a.role = 'customer'
       GROUP BY a.id, a.name, a.credit_limit
       ORDER BY a.name;
     `);
+
 
     res.json(rows);
   } catch (err) {
