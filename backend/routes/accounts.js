@@ -134,4 +134,40 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+/* ------------------------------- ĐĂNG NHẬP -------------------------------
+   POST /api/accounts/login
+------------------------------------------------------------------------- */
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(400).json({ message: "Thiếu email hoặc mật khẩu." });
+
+  try {
+    const [rows] = await db.execute(
+      `SELECT * FROM accounts WHERE email = ?`,
+      [email]
+    );
+
+    const user = rows[0];
+    if (!user)
+      return res.status(401).json({ message: "Email không tồn tại." });
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match)
+      return res.status(401).json({ message: "Sai mật khẩu." });
+
+    // Đăng nhập thành công → trả lại thông tin
+    res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+  } catch (err) {
+    console.error("Lỗi đăng nhập:", err);
+    res.status(500).json({ message: "Lỗi server." });
+  }
+});
+
+
 module.exports = router;
