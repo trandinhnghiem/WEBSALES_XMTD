@@ -11,6 +11,8 @@ const distributorRoutes = require("./routes/distributors");
 app.use("/api/distributors", distributorRoutes);
 const userRoutes = require("./routes/users");
 app.use("/api/users", userRoutes);
+const creditRoutes = require("./routes/credit");
+app.use("/api/accounts/credit-info", creditRoutes);
 
 
 const PORT = process.env.PORT || 5000;

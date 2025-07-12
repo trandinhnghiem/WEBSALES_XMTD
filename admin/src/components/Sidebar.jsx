@@ -8,13 +8,13 @@ import {
   Users,
   FileText,
   Truck,
-  Package
-} from "lucide-react"; // Bạn có thể chọn icon khác tùy nhu cầu
+  Package,
+} from "lucide-react";
 
 function Sidebar() {
   const location = useLocation();
   const [openCreate, setOpenCreate] = useState(false);
-  const [collapsed, setCollapsed] = useState(false); // Trạng thái thu gọn
+  const [collapsed, setCollapsed] = useState(false);
 
   const isAccountPath =
     location.pathname === "/create-customer" ||
@@ -22,42 +22,50 @@ function Sidebar() {
 
   return (
     <div
-      className={`bg-blue-700 text-white ${
-        collapsed ? "w-20" : "w-64"
-      } transition-all duration-300 p-4 space-y-4 relative`}
-    >
+  className={`bg-[#284ed4] text-white h-screen transition-all duration-300 ${
+    collapsed ? "w-20" : "w-72"
+  } pt-2.5 pb-4 px-4 pr-6 relative space-y-3 rounded-r-2xl shadow-lg`}
+>
+
       {/* Nút thu gọn/mở rộng */}
       <button
-        className="absolute top-2 right-2 bg-blue-600 hover:bg-blue-800 p-1 rounded"
+        className="absolute top-1/2 -translate-y-1/2 -right-3.5 z-50 bg-white text-blue-800 border border-blue-700 hover:bg-blue-100 p-1 rounded-full shadow-md transition-all"
         onClick={() => setCollapsed(!collapsed)}
         title={collapsed ? "Mở rộng" : "Thu gọn"}
       >
         {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
       </button>
 
-      {/* Logo / Tên */}
-      {/* Header với logo và tiêu đề */}
-<div className="mb-4">
-  <div className="flex items-center justify-center mb-2">
-    <img
-      src="/logo_XMTD.png" // Đặt logo vào public/logo.png
-      alt="Logo"
-      className={`transition-all duration-300 ${collapsed ? "w-8" : "w-20"}`}
-    />
-  </div>
-  {!collapsed && (
-    <>
-      <h1 className="text-center text-lg font-semibold">XI MĂNG TÂY ĐÔ</h1>
-      <hr className="border-t border-blue-300 mt-2" />
-    </>
-  )}
-</div>
+      {/* Logo & Tiêu đề */}
+      <div className="mb-8">
+        {collapsed ? (
+          <div className="flex justify-center">
+            <img
+              src="/logo_XMTD.png"
+              alt="Logo"
+              className="w-16 h-16 object-contain"
+            />
+          </div>
+        ) : (
+          <div className="flex items-center justify-center gap-3 px-3 py-3 bg-blue-600 rounded-lg shadow-md mx-auto">
+            <img
+              src="/logo_XMTD.png"
+              alt="Logo"
+              className="w-10 h-10 object-contain"
+            />
+            <h1 className="text-lg font-semibold whitespace-nowrap tracking-wide">
+              XI MĂNG TÂY ĐÔ
+            </h1>
+          </div>
+        )}
+      </div>
 
-
-      {/* QUẢN LÝ TÀI KHOẢN */}
+        
+      {/* QUẢN LÝ TÀI KHOẢN dropdown */}
+      <div className="mt-6">
       <button
         onClick={() => setOpenCreate(!openCreate)}
-        className={`flex items-center justify-between w-full px-2 py-2 rounded ${
+        className={`mt-5 flex items-center justify-between w-full px-3 py-2 rounded-lg transition-colors ${
           isAccountPath ? "bg-blue-800 font-semibold" : "hover:bg-blue-800"
         }`}
       >
@@ -69,14 +77,15 @@ function Sidebar() {
           (openCreate ? <ChevronUp size={18} /> : <ChevronDown size={18} />)}
       </button>
 
-      {/* Menu con */}
       {!collapsed && openCreate && (
-        <div className="ml-5">
+        <div className="mt-1 mb-1 ml-6 space-y-1">
           <NavLink
             to="/create-customer"
             className={({ isActive }) =>
-              `block w-full px-2 py-2 rounded text-sm ${
-                isActive ? "bg-blue-800 font-semibold text-white" : "hover:bg-blue-800"
+              `block px-3 py-2 rounded-lg text-base transition-colors ${
+                isActive
+                  ? "bg-blue-800 font-semibold text-white"
+                  : "hover:bg-blue-800 hover:text-gray-100"
               }`
             }
           >
@@ -85,8 +94,10 @@ function Sidebar() {
           <NavLink
             to="/create-employee"
             className={({ isActive }) =>
-              `block w-full px-2 py-2 rounded text-sm ${
-                isActive ? "bg-blue-800 font-semibold text-white" : "hover:bg-blue-800"
+              `block px-3 py-2 rounded-lg text-base transition-colors ${
+                isActive
+                  ? "bg-blue-800 font-semibold text-white"
+                  : "hover:bg-blue-800 hover:text-gray-100"
               }`
             }
           >
@@ -95,42 +106,49 @@ function Sidebar() {
         </div>
       )}
 
-      {/* Các menu khác */}
+      {/* Các mục còn lại */}
       <NavLink
         to="/credit-info"
         className={({ isActive }) =>
-          `flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-blue-800 ${
-            isActive ? "bg-blue-800 font-semibold" : ""
+          `flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+            isActive
+              ? "bg-blue-800 font-semibold text-white"
+              : "hover:bg-blue-800 hover:text-gray-100"
           }`
         }
       >
         <FileText size={18} />
-        {!collapsed && "THÔNG TIN HẠN MỨC"}
+        {!collapsed && <span>THÔNG TIN HẠN MỨC</span>}
       </NavLink>
 
       <NavLink
         to="/delivery-codes"
         className={({ isActive }) =>
-          `flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-blue-800 ${
-            isActive ? "bg-blue-800 font-semibold" : ""
+          `flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+            isActive
+              ? "bg-blue-800 font-semibold text-white"
+              : "hover:bg-blue-800 hover:text-gray-100"
           }`
         }
       >
         <Package size={18} />
-        {!collapsed && "MÃ SỐ GIAO HÀNG"}
+        {!collapsed && <span>MÃ SỐ GIAO HÀNG</span>}
       </NavLink>
 
       <NavLink
         to="/delivery-details"
         className={({ isActive }) =>
-          `flex items-center gap-2 w-full px-2 py-2 rounded hover:bg-blue-800 ${
-            isActive ? "bg-blue-800 font-semibold" : ""
+          `flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+            isActive
+              ? "bg-blue-800 font-semibold text-white"
+              : "hover:bg-blue-800 hover:text-gray-100"
           }`
         }
       >
         <Truck size={18} />
-        {!collapsed && "CHI TIẾT XUẤT HÀNG"}
+        {!collapsed && <span>CHI TIẾT XUẤT HÀNG</span>}
       </NavLink>
+    </div>
     </div>
   );
 }

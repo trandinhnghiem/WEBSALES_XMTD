@@ -32,6 +32,43 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Lỗi server." });
   }
 });
+/* -------------------------------  CẬP NHẬT TÀI KHOẢN  ----------------------------- */
+/* PUT /api/accounts/:id
+   – Frontend gửi bất kỳ trường nào cần đổi
+----------------------------------------------------------------------------- */
+router.put("/:id", async (req, res) => {
+  const { name, password, email, tax_code, address, credit_limit, provinces } = req.body;
+  if (!name) return res.status(400).json({ message: "Thiếu tên." });
+
+  try {
+    /* build SET động */
+    const sets = ["name = ?"];
+    const params = [name];
+
+    if (email       !== undefined) { sets.push("email = ?");        params.push(email); }
+    if (tax_code    !== undefined) { sets.push("tax_code = ?");     params.push(tax_code); }
+    if (address     !== undefined) { sets.push("address = ?");      params.push(address); }
+    if (credit_limit!== undefined) { sets.push("credit_limit = ?"); params.push(credit_limit); }
+    if (provinces   !== undefined) { sets.push("provinces = ?");    params.push(JSON.stringify(provinces)); }
+    if (password) {
+      const hash = await bcrypt.hash(password, 10);
+      sets.push("password = ?");
+      params.push(hash);
+    }
+
+    params.push(req.params.id); // WHERE id = ?
+
+    await db.execute(
+      `UPDATE accounts SET ${sets.join(", ")} WHERE id = ?`,
+      params
+    );
+    res.json({ message: "Cập nhật thành công." });
+  } catch (err) {
+    console.error("Lỗi cập nhật:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 /* ---------------------------------------------
    TẠO TÀI KHOẢN (chung cho khách + nhân viên)
@@ -80,6 +117,20 @@ router.post("/create", async (req, res) => {
   } catch (err) {
     console.error("Lỗi tạo tài khoản:", err);
     res.status(500).json({ message: "Lỗi server." });
+  }
+});
+
+/* -------------------------
+   XOÁ TÀI KHOẢN THEO ID
+   DELETE /api/accounts/:id
+-------------------------- */
+router.delete("/:id", async (req, res) => {
+  try {
+    await db.execute("DELETE FROM accounts WHERE id = ?", [req.params.id]);
+    res.json({ message: "Đã xoá tài khoản thành công." });
+  } catch (err) {
+    console.error("Lỗi xoá tài khoản:", err);
+    res.status(500).json({ message: "Lỗi server khi xoá." });
   }
 });
 

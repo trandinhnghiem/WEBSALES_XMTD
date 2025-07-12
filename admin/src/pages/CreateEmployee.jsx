@@ -56,7 +56,7 @@ export default function CreateEmployee() {
     try {
       const res = await fetch(`http://localhost:5000/api/users/${id}`, { method: "DELETE" });
       if (res.ok) {
-        alert("Đã xoá!");
+        alert("Đã xoá nhân viên!");
         fetchEmployees();
       } else alert("Xoá thất bại");
     } catch (err) {
