@@ -40,7 +40,7 @@ export default function CreateCustomer() {
   /* ---------- API ---------- */
   const fetchAccounts = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/distributors?role=customer");
+      const res = await fetch("http://localhost:5000/api/accounts?role=customer");
       const data = await res.json();
       if (res.ok) setAccounts(data);
     } catch (err) {
@@ -117,7 +117,7 @@ export default function CreateCustomer() {
   const handleDelete = async (id) => {
     if (!window.confirm("Xoá khách hàng này?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/distributors/${id}`, {
+      const res = await fetch(`http://localhost:5000/api/accounts/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {

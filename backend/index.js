@@ -7,8 +7,8 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 
-const distributorRoutes = require("./routes/distributors");
-app.use("/api/distributors", distributorRoutes);
+const accountRoutes = require("./routes/accounts");
+app.use("/api/accounts", accountRoutes);
 const userRoutes = require("./routes/users");
 app.use("/api/users", userRoutes);
 const creditRoutes = require("./routes/credit");
