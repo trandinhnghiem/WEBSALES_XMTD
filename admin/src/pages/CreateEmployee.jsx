@@ -4,7 +4,7 @@ export default function CreateEmployee() {
   /* ---------- STATE ---------- */
   const [showForm, setShowForm]   = useState(false);
   const [employees, setEmployees] = useState([]);
-  const [form, setForm]           = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({ id: "", name: "", email: "", password: "" });
 
   /* ---------- LẤY DANH SÁCH NHÂN VIÊN ---------- */
   const fetchEmployees = async () => {
@@ -38,7 +38,7 @@ export default function CreateEmployee() {
       const data = await res.json();
       if (res.ok) {
         alert("Đã tạo nhân viên!");
-        setForm({ name: "", email: "", password: "" });
+        setForm({ id: "", name: "", email: "", password: "" });
         setShowForm(false);
         fetchEmployees();
       } else {
@@ -66,9 +66,8 @@ export default function CreateEmployee() {
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <div className="p-2 w-full">
       <h1 className="text-2xl font-semibold text-center uppercase mb-6">Tài khoản nhân viên</h1>
-
       {/* nút mở form */}
       <button
         onClick={() => setShowForm(!showForm)}
@@ -80,6 +79,17 @@ export default function CreateEmployee() {
       {/* FORM */}
       {showForm && (
         <form onSubmit={handleSubmit} className="space-y-4 border p-4 rounded shadow mb-8">
+          <div>
+            <label className="block text-sm font-medium">Mã nhân viên (ID)</label>
+            <input
+              name="id"
+              value={form.id}
+              onChange={handleChange}
+              className="w-full border rounded px-3 py-2"
+              required
+            />
+          </div>
+
           <div>
             <label className="block text-sm font-medium">Họ tên</label>
             <input

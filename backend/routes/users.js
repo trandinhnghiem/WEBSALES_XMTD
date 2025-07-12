@@ -2,12 +2,11 @@ const express = require("express");
 const router  = express.Router();
 const db      = require("../db");
 const bcrypt  = require("bcrypt");
-const { v4: uuidv4 } = require("uuid");
 
 /* ------ TẠO NHÂN VIÊN ------ */
 router.post("/employee", async (req, res) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password) {
+  const { id, name, email, password } = req.body;
+  if (!id || !name || !email || !password) {
     return res.status(400).json({ message: "Thiếu dữ liệu nhân viên." });
   }
 
@@ -17,7 +16,7 @@ router.post("/employee", async (req, res) => {
       `INSERT INTO customer
          (id, name, email, password, role)
        VALUES (?, ?, ?, ?, 'employee')`,
-      [uuidv4(), name, email, hashed]
+      [id, name, email, hashed]
     );
     res.status(201).json({ message: "Tạo nhân viên thành công." });
   } catch (err) {

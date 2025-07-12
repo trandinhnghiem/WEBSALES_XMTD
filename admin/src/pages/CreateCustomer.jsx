@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 
 const provincesList = [
-  "Hà Nội", "Hồ Chí Minh", "Hải Phòng", "Đà Nẵng", "Cần Thơ", "Bà Rịa - Vũng Tàu",
-  "Bắc Giang", "Bắc Kạn", "Bạc Liêu", "Bắc Ninh", "Bến Tre", "Bình Định",
-  "Bình Dương", "Bình Phước", "Bình Thuận", "Cà Mau", "Cao Bằng", "Đắk Lắk",
-  "Đắk Nông", "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang",
-  "Hà Nam", "Hà Tĩnh", "Hải Dương", "Hậu Giang", "Hòa Bình", "Hưng Yên",
-  "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu"
-];
+  "Hà Nội", "Thành phố Hồ Chí Minh", "Hải Phòng", "Đà Nẵng", "Cần Thơ", "Huế",
+  "Lai Châu", "Điện Biên", "Sơn La", "Cao Bằng", "Lạng Sơn", "Quảng Ninh",
+  "Thanh Hóa", "Nghệ An", "Hà Tĩnh", "Tuyên Quang", "Lào Cai", "Thái Nguyên",
+  "Phú Thọ", "Bắc Ninh", "Hưng Yên", "Ninh Bình", "Quảng Trị", "Quảng Ngãi",
+  "Gia Lai", "Khánh Hòa", "Lâm Đồng", "Đắk Lắk", "Đồng Nai", "Tây Ninh",
+  "Vĩnh Long", "Đồng Tháp", "Cà Mau", "An Giang"
+]
 
 export default function CreateCustomer() {
   const [form, setForm] = useState({
@@ -39,7 +39,7 @@ export default function CreateCustomer() {
 
   const fetchAccounts = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/distributors");
+      const res = await fetch("http://localhost:5000/api/distributors?role=customer");
       const data = await res.json();
       if (res.ok) setAccounts(data);
     } catch (err) {
@@ -107,14 +107,12 @@ export default function CreateCustomer() {
 
   return (
     <div className="p-2 w-full">
-      
-        <h2 className="text-xl font-semibold mb-4">Tài khoản khách hàng</h2>
-
+      <h1 className="text-2xl font-semibold text-center uppercase mb-6">Tài khoản khách hàng</h1>
         <button
           className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded mb-6"
           onClick={() => setShowForm(!showForm)}
         >
-          + Thêm tài khoản
+          + Thêm khách hàng
         </button>
 
         {showForm && (
