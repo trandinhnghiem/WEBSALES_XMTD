@@ -13,7 +13,7 @@ router.post("/employee", async (req, res) => {
   try {
     const hashed = await bcrypt.hash(password, 10);
     await db.execute(
-      `INSERT INTO customer
+      `INSERT INTO accounts
          (id, name, email, password, role)
        VALUES (?, ?, ?, ?, 'employee')`,
       [id, name, email, hashed]
@@ -28,7 +28,7 @@ router.post("/employee", async (req, res) => {
 /* ------ LẤY DS NHÂN VIÊN ------ */
 router.get("/", async (_req, res) => {
   const [rows] = await db.execute(
-    `SELECT id, name, email FROM customer WHERE role = 'employee'`
+    `SELECT id, name, email FROM accounts WHERE role = 'employee'`
   );
   res.json(rows);
 });
@@ -36,7 +36,7 @@ router.get("/", async (_req, res) => {
 /* ------ XOÁ ------ */
 router.delete("/:id", async (req, res) => {
   try {
-    await db.execute("DELETE FROM customer WHERE id = ?", [req.params.id]);
+    await db.execute("DELETE FROM accounts WHERE id = ?", [req.params.id]);
     res.json({ message: "Đã xoá" });
   } catch (err) {
     res.status(500).json({ message: "Server error" });

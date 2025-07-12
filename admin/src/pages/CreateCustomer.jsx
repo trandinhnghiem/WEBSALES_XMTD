@@ -129,7 +129,7 @@ export default function CreateCustomer() {
 
             <div>
               <label className="block text-sm font-medium">Mật khẩu</label>
-              <input type="password" name="password" value={form.password} onChange={handleChange} className="w-full border rounded px-3 py-2" required placeholder="Nhập mã số thuế kinh doanh"/>
+              <input type="password" name="password" value={form.password} onChange={handleChange} className="w-full border rounded px-3 py-2" required placeholder="Nhập mật khẩu mạnh"/>
             </div>
 
             <div>

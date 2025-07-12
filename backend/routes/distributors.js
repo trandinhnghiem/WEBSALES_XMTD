@@ -6,17 +6,17 @@ const { v4: uuidv4 } = require("uuid");
 
 /* -------------------------------
    LẤY DANH SÁCH TÀI KHOẢN
-   GET /api/customers
-   GET /api/customers?role=employee
+   GET /api/accounts 
+   GET /api/accounts?role=employee
 -------------------------------- */
 router.get("/", async (req, res) => {
   const { role } = req.query;
 
   const sql = role
     ? `SELECT id, name, email, password, tax_code, address, credit_limit, provinces, role
-         FROM customer WHERE role = ?`
+         FROM accounts WHERE role = ?`
     : `SELECT id, name, email, password, tax_code, address, credit_limit, provinces, role
-         FROM customer`;
+         FROM accounts`;
 
   try {
     const [rows] = role ? await db.execute(sql, [role]) : await db.execute(sql);
@@ -60,7 +60,7 @@ router.post("/create", async (req, res) => {
     const hashed = await bcrypt.hash(password, 10);
 
     await db.execute(
-      `INSERT INTO customer
+      `INSERT INTO accounts
          (id, name, email, password, tax_code, address, credit_limit, provinces, role)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
